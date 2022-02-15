@@ -61,7 +61,7 @@ void displayAllStudents(std::vector<Student> &students)
 {
     for (int i = 0; i < students.size(); i++)
     {
-        std::cout << students[i].getName() << ": " << students[i].getGrade() << "%" << std::endl;
+        std::cout << std::endl << students[i].getName() << ": " << students[i].getGrade() << "%" << std::endl;
     }
 }
 
@@ -81,7 +81,7 @@ void calculateStats(std::vector<Student> &students)
         average += students[i].getGrade();
 
         /*Check for max*/
-        if(max = nullptr)
+        if(max == nullptr)
         {
             max = &students[i];
         }
@@ -91,7 +91,7 @@ void calculateStats(std::vector<Student> &students)
         }
 
         /*Check for min*/
-        if(min = nullptr)
+        if(min == nullptr)
         {
             min = &students[i];
         }
@@ -102,12 +102,25 @@ void calculateStats(std::vector<Student> &students)
     }
 
     /*Print max and min students*/
-    std::cout << "Maximum Grade:\n" << max->getName() << ": " << max->getGrade() << "%" << std::endl;
-    std::cout << "Minimum Grade:\n" << min->getName() << ": " << min->getGrade() << "%" << std::endl;
+    std::cout << "\nMaximum Grade:\n" << max->getName() << ": " << max->getGrade() << "%" << std::endl;
+    std::cout << "\nMinimum Grade:\n" << min->getName() << ": " << min->getGrade() << "%" << std::endl;
 
     /*Calculate and Display Average*/
     average /= students.size();
-    std::cout << "Average Grade: " << average << "%" << std::endl;
+    std::cout << "\nAverage Grade: " << average << "%" << std::endl;
+}
+
+void countHonors(std::vector<Student> &students)
+{
+    /*Calculate Max and Min*/
+    std::cout << "\nHonors Students:\n";
+    for (int i = 0; i < students.size(); i++)
+    {
+        if (students[i].getGrade() > 80)
+        {
+            std::cout << std::endl << students[i].getName() << ": " << students[i].getGrade() << "%" << std::endl;
+        }
+    }
 }
 
 int main()
@@ -118,10 +131,6 @@ int main()
     size_t choice; 
     size_t index;
     float grade;
-
-
-    /*Students Vector*/
-    std::vector<Student> students;
 
     /*Init Names vector*/
     std::vector<std::string> names;
@@ -134,13 +143,30 @@ int main()
         names.push_back(line);
     }
 
+    /*Students Vector and Generate Random Students*/
+    std::vector<Student> students;
+
+    /*Clear Students Vector*/
+    students.clear();
+
+    /*Generate New Students*/
+    for (int i = 0; i < STUDENT_COUNT; i++)
+    {
+        index = randomInt(names.size());
+        grade = randomInt(100);
+
+        students.push_back(Student(names[index], grade));
+    }
+
+
     /*Main Menu*/
     std::cout << "---- Welcome to Student Grade Analysis ---- \n";
+
 
     /*Main Menu Loop*/
     while (choice != 5)
     {
-        std::cout << "Main Menu: \n1.Display All Grade \n2.Randomize Students \n3.Stats \n4.Count Honours \n5.Exit \nEnter menu selection (1-5): ";
+        std::cout << "\nMain Menu: \n1.Display All Grade \n2.Randomize Students \n3.Stats \n4.Count Honours \n5.Exit \nEnter menu selection (1-5): ";
         std::cin >> choice;
 
         switch (choice)
@@ -165,6 +191,7 @@ int main()
 
                 students.push_back(Student(names[index], grade));
             }
+            std::cout << "\nGENEARTED NEW STUDENTS!\n";
             break;
 
         /*Stats*/
@@ -174,6 +201,7 @@ int main()
 
         /*Count Honours*/
         case 4:
+            countHonors(students);
             break;
         
         /*Exit*/
@@ -182,11 +210,9 @@ int main()
         
         /*Invalid Selection*/
         default:
-            std::cout << "ERROR: Invalid Selection!";
+            std::cout << "\nERROR: Invalid Selection!";
             break;
         }
     }
-
-
 
 }
