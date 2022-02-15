@@ -2,17 +2,17 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "g++ build and debug active file",
+            "name": "g++ build and debug",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/StudentGradeAnalysis.exe",
+            "program": "${workspaceFolder}/GradeAnalysis",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
-            "miDebuggerPath": "C:/MinGW/bin/gdb.exe",
+            "miDebuggerPath": "/usr/bin/gdb",
             "setupCommands": [
                 {
                     "description": "Enably pretty printing",
@@ -20,7 +20,7 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "g++ build active file"
+            "preLaunchTask": "g++ build"
         }
     ]
 }
